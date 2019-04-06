@@ -1,7 +1,7 @@
-const Author = require('../models/author');
+const Author = require("../models/author");
 
 module.exports = {
-  async index(req,res){
+  async index(req, res) {
     const author = await Author.find({});
     return res.json(author);
   },
@@ -9,5 +9,5 @@ module.exports = {
     console.log(req.body);
     const author = await Author.create(req.body);
     return res.json(author);
-  },
-}
+  }
+};

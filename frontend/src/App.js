@@ -1,8 +1,17 @@
 import React, { Component } from "react";
+import api from "./services/api";
 import "./css/pure-min.css";
 import "./css/side-menu.css";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = { list: [] };
+  }
+  componentWillMount = async () => {
+    const author = await api.get("/author");
+    this.setState({ list: author.data });
+  };
   render() {
     return (
       <div id="layout">
@@ -66,7 +75,26 @@ class App extends Component {
                 </div>
               </form>
             </div>
-            <div />
+            <div>
+              <table className="pure-table">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.state.list.map(autor => {
+                    return (
+                      <tr>
+                        <td>{autor.name}</td>
+                        <td>{autor.email}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
