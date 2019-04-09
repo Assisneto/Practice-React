@@ -8,7 +8,7 @@ class App extends Component {
     super();
     this.state = { list: [] };
   }
-  componentWillMount = async () => {
+  componentDidMount = async () => {
     const author = await api.get("/author");
     this.setState({ list: author.data });
   };
@@ -86,7 +86,7 @@ class App extends Component {
                 <tbody>
                   {this.state.list.map(autor => {
                     return (
-                      <tr>
+                      <tr key={autor._id}>
                         <td>{autor.name}</td>
                         <td>{autor.email}</td>
                       </tr>
