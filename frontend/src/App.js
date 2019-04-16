@@ -14,11 +14,13 @@ class App extends Component {
   };
   sendForm = async e => {
     e.preventDefault();
-    await api.post("/author", {
+    const data = await api.post("/author", {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password
     });
+    console.log(data.data);
+    data ? this.setState({ list: data.data }) : console.log(data);
   };
   setName = e => {
     this.setState({ name: e.target.value });
@@ -40,23 +42,23 @@ class App extends Component {
 
         <div id="menu">
           <div className="pure-menu">
-            <a className="pure-menu-heading" href="#">
+            <a className="pure-menu-heading" href="/">
               Company
             </a>
 
             <ul className="pure-menu-list">
               <li className="pure-menu-item">
-                <a href="#" className="pure-menu-link">
+                <a href="/" className="pure-menu-link">
                   Home
                 </a>
               </li>
               <li className="pure-menu-item">
-                <a href="#" className="pure-menu-link">
+                <a href="/" className="pure-menu-link">
                   Autor
                 </a>
               </li>
               <li className="pure-menu-item">
-                <a href="#" className="pure-menu-link">
+                <a href="/" className="pure-menu-link">
                   Livro
                 </a>
               </li>
