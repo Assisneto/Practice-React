@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import api from "./services/api";
 import "./css/pure-min.css";
 import "./css/side-menu.css";
-
+import CustomInput from "./components/customInput";
+import CustomInputForm from "./components/customInputForm";
 class App extends Component {
   constructor() {
     super();
@@ -19,8 +20,9 @@ class App extends Component {
       email: this.state.email,
       password: this.state.password
     });
-    console.log(data.data);
-    data ? this.setState({ list: data.data }) : console.log(data);
+    data
+      ? this.setState({ list: data.data, name: "", email: "", password: "" })
+      : console.log(data);
   };
   setName = e => {
     this.setState({ name: e.target.value });
@@ -77,45 +79,32 @@ class App extends Component {
                 onSubmit={this.sendForm}
                 method="post"
               >
-                <div className="pure-control-group">
-                  <label htmlFor="nome">Nome</label>
-                  <input
-                    id="nome"
-                    type="text"
-                    name="nome"
-                    onChange={this.setName}
-                    value={this.state.name}
-                  />
-                </div>
-                <div className="pure-control-group">
-                  <label htmlFor="email">Email</label>
-                  <input
-                    id="email"
-                    type="email"
-                    name="email"
-                    onChange={this.setEmail}
-                    value={this.state.email}
-                  />
-                </div>
-                <div className="pure-control-group">
-                  <label htmlFor="senha">Senha</label>
-                  <input
-                    id="senha"
-                    type="password"
-                    name="senha"
-                    onChange={this.setPassoword}
-                    value={this.state.password}
-                  />
-                </div>
-                <div className="pure-control-group">
-                  <label />
-                  <button
-                    type="submit"
-                    className="pure-button pure-button-primary"
-                  >
-                    Gravar
-                  </button>
-                </div>
+                <CustomInput
+                  id="name"
+                  type="text"
+                  name="name"
+                  label="name"
+                  value={this.state.name}
+                  onChange={this.setName}
+                />
+                <CustomInput
+                  id="email"
+                  type="email"
+                  name="email"
+                  label="email"
+                  value={this.state.email}
+                  onChange={this.setEmail}
+                />
+
+                <CustomInput
+                  id="senha"
+                  type="password"
+                  name="senha"
+                  label="password"
+                  onChange={this.setPassoword}
+                  value={this.state.password}
+                />
+                <CustomInputForm label="Gravar" />
               </form>
             </div>
             <div>
