@@ -3,6 +3,7 @@ import "./css/pure-min.css";
 import "./css/side-menu.css";
 import { Link, BrowserRouter, Switch, Route } from "react-router-dom";
 import AuthorBox from "./components/author";
+import Home from "./components/home";
 class App extends Component {
   render() {
     return (
@@ -26,30 +27,23 @@ class App extends Component {
                 </li>
                 <li className="pure-menu-item">
                   <Link to="/authors" className="pure-menu-link">
-                    Autor
+                    Authors
                   </Link>
                 </li>
                 <li className="pure-menu-item">
                   <Link to="/" className="pure-menu-link">
-                    Livro
+                    Books
                   </Link>
                 </li>
               </ul>
             </div>
           </div>
 
-          <div id="main">
-            <div className="header">
-              <h1>Home</h1>
-            </div>
-            <div className="content" id="content">
-              <Switch>
-                <Route exact path="/" />
-                <Route exact path="/authors" component={AuthorBox} />
-                <Route exact path="/books" />
-              </Switch>
-            </div>
-          </div>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/authors" component={AuthorBox} />
+            <Route exact path="/books" />
+          </Switch>
         </div>
       </BrowserRouter>
     );
