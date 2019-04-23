@@ -8,6 +8,7 @@ module.exports = {
   async store(req, res) {
     console.log(req.body);
     const author = await Author.create(req.body);
-    return res.json(author);
+    const authors = await Author.find();
+    return res.json(authors);
   }
 };

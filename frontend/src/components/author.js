@@ -2,10 +2,31 @@ import React, { Component } from "react";
 import api from "./../services/api";
 import CustomInput from "./customInput";
 import CustomInputForm from "./customInputForm";
+import PubSub from "pubsub-js";
 
-// import { Container } from './styles';
+export default class AuthorBox extends Component {
+  constructor() {
+    super();
+    this.state = { list: [] };
+  }
+  componentDidMount = async () => {
+    const author = await api.get("/author");
+    this.setState({ list: author.data });
+    PubSub.subscribe("newList", (topico, newList) => {
+      this.setState({ list: newList });
+    });
+  };
+  render() {
+    return (
+      <div>
+        <AuthorForm />
+        <AuthorTable list={this.state.list} />
+      </div>
+    );
+  }
+}
 
-export class AuthorForm extends Component {
+class AuthorForm extends Component {
   constructor() {
     super();
     this.state = { name: "", email: "", password: "" };
@@ -17,9 +38,8 @@ export class AuthorForm extends Component {
       email: this.state.email,
       password: this.state.password
     });
-    data
-      ? this.setState({ list: data.data, name: "", email: "", password: "" })
-      : console.log(data);
+    this.setState({ list: data.data, name: "", email: "", password: "" });
+    data ? PubSub.publish("newList", data.data) : console.log(data);
   };
   setName = e => {
     this.setState({ name: e.target.value });
@@ -72,15 +92,7 @@ export class AuthorForm extends Component {
   }
 }
 
-export class AuthorTable extends Component {
-  constructor() {
-    super();
-    this.state = { list: [] };
-  }
-  componentDidMount = async () => {
-    const author = await api.get("/author");
-    this.setState({ list: author.data });
-  };
+class AuthorTable extends Component {
   render() {
     return (
       <div>
@@ -92,7 +104,7 @@ export class AuthorTable extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.list.map(autor => {
+            {this.props.list.map(autor => {
               return (
                 <tr key={autor._id}>
                   <td>{autor.name}</td>

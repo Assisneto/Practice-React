@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./css/pure-min.css";
 import "./css/side-menu.css";
-import { AuthorForm, AuthorTable } from "./components/author";
+import AuthorBox from "./components/author";
 
 // import { AuthorForm, AuthorTable } from "./components/author";
 class App extends Component {
@@ -43,8 +43,7 @@ class App extends Component {
             <h1>Cadastro de Autores</h1>
           </div>
           <div className="content" id="content">
-            <AuthorForm />
-            <AuthorTable />
+            <AuthorBox />
           </div>
         </div>
       </div>
