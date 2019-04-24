@@ -4,6 +4,7 @@ import "./css/side-menu.css";
 import { Link, BrowserRouter, Switch, Route } from "react-router-dom";
 import AuthorBox from "./components/author";
 import Home from "./components/home";
+import BooksBox from "./components/book";
 class App extends Component {
   render() {
     return (
@@ -31,7 +32,7 @@ class App extends Component {
                   </Link>
                 </li>
                 <li className="pure-menu-item">
-                  <Link to="/" className="pure-menu-link">
+                  <Link to="/books" className="pure-menu-link">
                     Books
                   </Link>
                 </li>
@@ -42,7 +43,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/authors" component={AuthorBox} />
-            <Route exact path="/books" />
+            <Route exact path="/books" component={BooksBox} />
           </Switch>
         </div>
       </BrowserRouter>
